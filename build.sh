@@ -8,9 +8,21 @@ echo "→ Minifying CSS..."
 cat css/theme.css | tr -d '\n' | sed 's/  */ /g' | sed 's/ *{ */{/g' | sed 's/ *} */}/g' | sed 's/ *: */:/g' | sed 's/ *; */;/g' | sed 's/ *, */,/g' > css/theme.min.css
 cat css/styles.css | tr -d '\n' | sed 's/  */ /g' | sed 's/ *{ */{/g' | sed 's/ *} */}/g' | sed 's/ *: */:/g' | sed 's/ *; */;/g' | sed 's/ *, */,/g' > css/styles.min.css
 
-# Minify JS
+# Minify JS (safer minification that preserves regex patterns)
 echo "→ Minifying JavaScript..."
-cat js/app.js | sed '/^\/\//d' | sed 's/\/\/.*$//' | tr -d '\n' | sed 's/  */ /g' > js/app.min.js
+cat js/app.js | \
+  sed '/^[[:space:]]*\/\//d' | \
+  sed 's/[[:space:]]*\/\/[^"'\'']*$//' | \
+  sed 's/[[:space:]]\{2,\}/ /g' | \
+  sed 's/^[[:space:]]\+//' | \
+  tr '\n' ' ' | \
+  sed 's/[[:space:]]\+/ /g' | \
+  sed 's/; /;/g' | \
+  sed 's/ {/{/g' | \
+  sed 's/{ /{/g' | \
+  sed 's/ }/}/g' | \
+  sed 's/} /}/g' \
+  > js/app.min.js
 
 # Report sizes
 echo ""

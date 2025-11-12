@@ -793,82 +793,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================================
 // GSAP: Scroll-driven text highlight & extra micro-animations
 // ============================================================
+// GSAP: Simple micro-animations (text highlight disabled)
+// ============================================================
 if (typeof gsap !== 'undefined') {
   try {
     gsap.registerPlugin(ScrollTrigger);
-
-    // Wrap text nodes inside elements with .highlight-word spans
-    // Preserve original text for screen readers via aria-label
-    function wrapTextForHighlight(selector) {
-      document.querySelectorAll(selector).forEach(el => {
-        // Skip elements that have already been processed
-        if (el.dataset.highlighted) return;
-
-        // Ignore empty or very short elements
-        const text = el.textContent.trim();
-        if (!text || text.length < 2) return;
-
-        const words = text.split(/\s+/);
-        if (words.length === 0) return;
-
-        el.dataset.highlighted = 'true';
-        
-        // Preserve original text for screen readers
-        el.setAttribute('aria-label', text);
-        
-        // Security: Clear existing content safely using textContent instead of innerHTML
-        while (el.firstChild) {
-          el.removeChild(el.firstChild);
-        }
-
-        words.forEach((w, i) => {
-          const span = document.createElement('span');
-          span.className = 'highlight-word';
-          span.setAttribute('aria-hidden', 'true'); // Hide from screen readers
-          span.textContent = w; // Safe: textContent escapes HTML
-          el.appendChild(span);
-          if (i !== words.length - 1) el.appendChild(document.createTextNode(' '));
-        });
-      });
-    }
-
-    // Apply wrapping to main body text (headings, paragraphs, list items, links)
-    wrapTextForHighlight('main h1, main h2, main h3, main h4, main p, main li, main a, .name-display');
-
-    // Initialize starting state for highlight custom property
-    document.querySelectorAll('.highlight-word').forEach(w => {
-      gsap.set(w, { css: { '--highlightWidth': '0%' }, autoAlpha: 1 });
-    });
-
-    // Animate words when their parent element enters viewport
-    // Tuned for elegant visual rhythm with refined timings
-    const parents = document.querySelectorAll('main h1, main h2, main h3, main h4, main p, main li, main a, .name-display');
-    parents.forEach(parent => {
-      const words = parent.querySelectorAll('.highlight-word');
-      if (!words || words.length === 0) return;
-
-      // Fade/slide words in with a refined stagger and reveal highlight
-      // Adjusted: slower stagger (0.025 → more luxurious), longer duration (0.85s), softer ease
-      gsap.fromTo(words, { y: 22, opacity: 0 }, {
-        y: 0,
-        opacity: 1,
-        stagger: 0.025,
-        duration: 0.85,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: parent,
-          start: 'top 82%',
-          toggleActions: 'play none none reverse'
-        },
-        onStart: () => {
-          // Highlight reveal: slightly faster (1.1s total) with a smoother ease
-          gsap.to(words, { duration: 1.1, css: { '--highlightWidth': '100%' }, stagger: 0.025, ease: 'power3.out' });
-        },
-        onReverseComplete: () => {
-          gsap.to(words, { duration: 0.5, css: { '--highlightWidth': '0%' }, stagger: 0.015, ease: 'power2.in' });
-        }
-      });
-    });
 
     // Micro animations that match the design language
     // Header reveal - slower and more elegant

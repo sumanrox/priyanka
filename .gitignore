@@ -1,0 +1,24 @@
+# Development files (keep in root, don't deploy to build/)
+node_modules/
+.DS_Store
+.vscode/
+*.log
+*.swp
+*.swo
+*~
+
+# Keep source files out of git if you prefer
+# (Uncomment if you only want to track build/)
+# css/theme.css
+# css/styles.css
+# js/app.js
+
+# Editor files
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+Thumbs.db
+.Spotlight-V100
+.Trashes

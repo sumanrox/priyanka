@@ -28,9 +28,54 @@ Performance optimizations
 ```
 
 - This regenerates the minified versions
-- `.htaccess` file included for Apache servers (enables compression, caching, security headers)
 - All external scripts use `defer` attribute for non-blocking loads
 - Critical CSS is preloaded via `<link rel="preload">`
+
+## Deployment
+
+### GitHub Pages Deployment
+
+This project includes a production-ready `build/` directory optimized for GitHub Pages.
+
+**Quick deploy:**
+```bash
+./deploy.sh
+```
+
+This script will:
+1. Minify all CSS and JavaScript files
+2. Copy optimized files to `build/` directory
+3. Show deployment instructions
+
+**Manual deployment:**
+
+1. **Push build folder to GitHub**:
+   ```bash
+   git add build/
+   git commit -m "Deploy to GitHub Pages"
+   git push origin main
+   ```
+
+2. **Configure GitHub Pages**:
+   - Go to: Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: `main`
+   - Folder: `/build`
+   - Click Save
+
+3. **Your site will be live at**:
+   - `https://sumanrox.github.io/priyanka/`
+
+**What's in build/:**
+- ✅ `index.html` - Main page
+- ✅ Minified CSS (~13 KB)
+- ✅ Minified JavaScript (~20 KB)
+- ✅ Images and resume
+- ✅ Configuration files
+- ✅ `.nojekyll` - Disables Jekyll processing
+- ✅ Security headers and optimizations
+
+See `build/README.md` for detailed deployment instructions.
 
 Theme switching
 - Edit `css/theme.css`. The file contains multiple `:root` presets; the active one is used. Comment/uncomment to try alternatives.
