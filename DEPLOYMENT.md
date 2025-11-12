@@ -15,13 +15,13 @@ git push origin main
 ```
 
 ### 3️⃣ Configure GitHub Pages
-1. Go to: https://github.com/sumanrox/priyanka/settings/pages
+1. Go to: https://github.com/ghoshpriyanka989/portfolio-priyanaka/settings/pages
 2. **Source**: Deploy from a branch
 3. **Branch**: `main`
 4. **Folder**: `/build`
 5. Click **Save**
 
-**Your site will be live at**: https://sumanrox.github.io/priyanka/
+**Your site will be live at**: https://ghoshpriyanka989.github.io/
 
 ---
 
@@ -163,7 +163,7 @@ A       @       185.199.111.153
 **Option B - CNAME Record**:
 ```
 Type     Host    Value
-CNAME    www     sumanrox.github.io
+CNAME    www     ghoshpriyanka989.github.io
 ```
 
 ### 3. Enable in GitHub
@@ -231,8 +231,9 @@ To add Google Analytics:
 ## 🆘 Need Help?
 
 - **GitHub Pages Docs**: https://docs.github.com/en/pages
-- **Repository Issues**: https://github.com/sumanrox/priyanka/issues
+- **Repository**: https://github.com/ghoshpriyanka989/portfolio-priyanaka
 - **Email**: ghoshpriyanka989@gmail.com
+- **LinkedIn**: https://www.linkedin.com/in/priyanka-ghosh-84025a164
 
 ---
 

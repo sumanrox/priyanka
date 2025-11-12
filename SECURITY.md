@@ -108,7 +108,7 @@ All external scripts protected with SRI:
 | GSAP 3.12.2 | SHA-512 | ✅ |
 | ScrollTrigger 3.12.2 | SHA-512 | ✅ |
 
-Lenis (unpkg.com): Consider hosting locally for SRI support
+Lenis (jsDelivr): Loaded via CDN, consider hosting locally for SRI support
 
 ---
 

@@ -63,7 +63,7 @@ echo ""
 
 # List all files
 echo "📁 Build contents:"
-find build/ -type f | grep -v "\.nojekyll\|README.md" | sort
+find build/ -type f | grep -v "\.nojekyll" | sort
 echo ""
 
 # Instructions
@@ -76,12 +76,12 @@ echo "   git commit -m 'Update production build'"
 echo "   git push origin main"
 echo ""
 echo "3. Deploy via GitHub Pages:"
-echo "   - Go to: https://github.com/sumanrox/priyanka/settings/pages"
+echo "   - Go to: https://github.com/ghoshpriyanka989/portfolio-priyanaka/settings/pages"
 echo "   - Source: Deploy from a branch"
 echo "   - Branch: main"
 echo "   - Folder: /build"
 echo "   - Save"
 echo ""
 echo "4. Your site will be live at:"
-echo "   https://sumanrox.github.io/priyanka/"
+echo "   https://ghoshpriyanka989.github.io/"
 echo ""
