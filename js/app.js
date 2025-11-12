@@ -659,20 +659,22 @@ backToTop?.addEventListener('click', () => {
 });
 
 // ============================================================
-// CONTACT FORM HANDLER WITH VALIDATION
+// CONTACT FORM HANDLER WITH VALIDATION (AJAX)
 // ============================================================
-document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+document.getElementById('contact-form')?.addEventListener('submit', async function(e) {
   e.preventDefault();
   const form = e.currentTarget;
+  const submitButton = form.querySelector('button[type="submit"]');
+  const buttonText = submitButton.querySelector('span');
   const feedbackElement = document.getElementById('form-feedback');
   const name = form.name.value.trim();
   const email = form.email.value.trim();
   const message = form.message.value.trim();
-  
+
   // Reset feedback
   feedbackElement.textContent = '';
   feedbackElement.className = 'text-sm font-medium';
-  
+
   // Security: Input validation and sanitization
   // Validate all fields are filled
   if (!name || !email || !message) {
@@ -680,7 +682,7 @@ document.getElementById('contact-form')?.addEventListener('submit', function(e) 
     feedbackElement.className = 'text-sm font-medium text-red-600';
     return;
   }
-  
+
   // Security: Validate name (2-100 characters, letters, spaces, hyphens only)
   const nameRegex = /^[a-zA-Z\s\-]{2,100}$/;
   if (!nameRegex.test(name)) {
@@ -688,38 +690,83 @@ document.getElementById('contact-form')?.addEventListener('submit', function(e) 
     feedbackElement.className = 'text-sm font-medium text-red-600';
     return;
   }
-  
+
   // Security: Validate email format and length
   if (!isValidEmail(email)) {
     feedbackElement.textContent = 'Please enter a valid email address.';
     feedbackElement.className = 'text-sm font-medium text-red-600';
     return;
   }
-  
+
   // Security: Validate message (10-5000 characters)
   if (message.length < 10 || message.length > 5000) {
     feedbackElement.textContent = 'Message must be between 10 and 5000 characters.';
     feedbackElement.className = 'text-sm font-medium text-red-600';
     return;
   }
-  
+
   // Security: Sanitize all inputs before using them
   const sanitizedName = sanitizeText(name);
   const sanitizedEmail = sanitizeText(email);
   const sanitizedMessage = sanitizeText(message);
-  
-  // If all validations pass, proceed with mailto
-  const subject = encodeURIComponent('Website inquiry from ' + sanitizedName);
-  const body = encodeURIComponent(sanitizedMessage + '\n\n' + sanitizedName + '\n' + sanitizedEmail);
-  window.location.href = `mailto:priyanka.ghosh@email.com?subject=${subject}&body=${body}`;
-  
-  feedbackElement.textContent = 'Opening email client...';
-  feedbackElement.className = 'text-sm font-medium text-green-600';
-  
-  setTimeout(() => {
-    form.reset();
-    feedbackElement.textContent = '';
-  }, 3000);
+
+  // Disable submit button and show loading state
+  submitButton.disabled = true;
+  submitButton.style.opacity = '0.6';
+  submitButton.style.cursor = 'not-allowed';
+  const originalButtonHTML = buttonText.innerHTML;
+  buttonText.innerHTML = '<i class="bi bi-hourglass-split animate-spin"></i> Sending...';
+
+  try {
+    // Prepare form data for FormSubmit
+    const formData = new FormData();
+    formData.append('name', sanitizedName);
+    formData.append('email', sanitizedEmail);
+    formData.append('message', sanitizedMessage);
+    formData.append('_captcha', 'false');
+    formData.append('_subject', `Website inquiry from ${sanitizedName}`);
+
+    // Submit via fetch to FormSubmit.co
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      // Success - show thank you message
+      buttonText.innerHTML = '<i class="bi bi-check-circle-fill"></i> Thank You!';
+      submitButton.style.backgroundColor = 'var(--accent)';
+      submitButton.style.borderColor = 'var(--accent)';
+      submitButton.style.opacity = '1';
+      feedbackElement.textContent = 'Your message has been sent successfully. I\'ll get back to you soon!';
+      feedbackElement.className = 'text-sm font-medium text-green-600';
+      
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        form.reset();
+        buttonText.innerHTML = originalButtonHTML;
+        submitButton.style.backgroundColor = 'var(--primary)';
+        submitButton.style.borderColor = 'var(--primary)';
+        submitButton.style.cursor = 'pointer';
+        submitButton.disabled = false;
+        feedbackElement.textContent = '';
+      }, 5000);
+    } else {
+      throw new Error('Form submission failed');
+    }
+  } catch (error) {
+    // Error handling
+    console.error('Form submission error:', error);
+    buttonText.innerHTML = originalButtonHTML;
+    submitButton.style.opacity = '1';
+    submitButton.style.cursor = 'pointer';
+    submitButton.disabled = false;
+    feedbackElement.textContent = 'Something went wrong. Please try again or email me directly.';
+    feedbackElement.className = 'text-sm font-medium text-red-600';
+  }
 });
 
 // ============================================================
