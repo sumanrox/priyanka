@@ -1,3 +1,54 @@
+# Priyanka Ghosh — Portfolio
+
+This is a small portfolio site built with static HTML, CSS (Tailwind utilities + custom), and vanilla JS. It includes a few 3D/visual effects (Three.js) and scroll-driven micro-animations (GSAP + ScrollTrigger).
+
+Key files
+- `index.html` — main page markup
+- `css/theme.css` — centralized theme variables (primary, accent, background, text, borders)
+- `css/styles.css` — component styles, layout and animations
+- `js/app.js` — interactions, GSAP animations, Three.js scenes, form handling
+- `resume/Priyanka-Ghosh-CV.pdf` — (place your resume here) — site download button links to this path
+
+Quick start
+1. Open `index.html` in your browser (no build step required). For a local dev server, you can run a simple static server, e.g.: 
+
+```bash
+# Python 3 http.server on port 8000
+python3 -m http.server 8000
+
+# then open http://localhost:8000 in your browser
+```
+
+Performance optimizations
+- Site uses minified CSS and JS files (`.min.css` and `.min.js`)
+- After editing source files (`css/theme.css`, `css/styles.css`, `js/app.js`), run the build script:
+
+```bash
+./build.sh
+```
+
+- This regenerates the minified versions
+- `.htaccess` file included for Apache servers (enables compression, caching, security headers)
+- All external scripts use `defer` attribute for non-blocking loads
+- Critical CSS is preloaded via `<link rel="preload">`
+
+Theme switching
+- Edit `css/theme.css`. The file contains multiple `:root` presets; the active one is used. Comment/uncomment to try alternatives.
+
+Site-specific values
+- Contact email: ghoshpriyanka989@gmail.com
+- Phone: +91 83350 29364
+- Resume path: `resume/Priyanka-Ghosh-CV.pdf`
+- Location (used on site): Howrah - 711108, West Bengal, India
+
+Notes & next steps
+- Consider moving contact info and the resume path into a single `data/site-config.json` and having `js/app.js` inject them into the page. This avoids hunting through `index.html` for replacements.
+- Three.js scenes currently use hardcoded colors — can be migrated to use computed CSS variables for full theme support.
+
+If you'd like, I can implement the small config JSON and wire `js/app.js` to populate contact/resume links dynamically.
+
+---
+Generated/updated by project edits on Nov 12, 2025.
 # Priyanka Ghosh - Portfolio Website
 
 Professional portfolio website showcasing experience, skills, certifications, and education in sales coordination and executive assistance.

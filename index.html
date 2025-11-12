@@ -4,6 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdnjs.cloudflare.com https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';">
+    
     <!-- Primary Meta Tags -->
     <title>Priyanka Ghosh — Sales Coordinator & Executive Assistant | Data-Driven Professional</title>
     <meta name="title" content="Priyanka Ghosh — Sales Coordinator & Executive Assistant | Data-Driven Professional" />
@@ -15,23 +23,23 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://priyankaghosh.com/" />
+    <meta property="og:url" content="https://priyankaghosh.github.io/" />
     <meta property="og:title" content="Priyanka Ghosh — Sales Coordinator & Executive Assistant" />
     <meta property="og:description" content="6+ years in sales operations, CRM, reporting and executive support. Data-driven and process oriented professional." />
-    <meta property="og:image" content="https://priyankaghosh.com/og-image.jpg" />
+    <meta property="og:image" content="https://priyankaghosh.github.io/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Priyanka Ghosh Portfolio" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://priyankaghosh.com/" />
+    <meta name="twitter:url" content="https://priyankaghosh.github.io/" />
     <meta name="twitter:title" content="Priyanka Ghosh — Sales Coordinator & Executive Assistant" />
     <meta name="twitter:description" content="6+ years in sales operations, CRM, reporting and executive support. Data-driven professional." />
-    <meta name="twitter:image" content="https://priyankaghosh.com/og-image.jpg" />
+    <meta name="twitter:image" content="https://priyankaghosh.github.io/og-image.jpg" />
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://priyankaghosh.com/" />
+    <link rel="canonical" href="https://priyankaghosh.github.io/" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -41,23 +49,34 @@
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="css/theme.min.css" as="style">
+    <link rel="preload" href="css/styles.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
     
     <!-- Professional Fonts: Playfair Display (name only), Inter (body) -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
     
-    <!-- Lenis Smooth Scroll -->
-    <script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
+    <!-- Lenis Smooth Scroll - defer -->
+    <script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js" defer crossorigin="anonymous"></script>
     
-    <!-- Three.js for 3D animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Three.js for 3D animations - defer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" defer></script>
+    <!-- GSAP for scroll-driven animations (core + ScrollTrigger) - defer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous" defer></script>
     
+    <!-- Theme Variables (Load first) -->
+    <link rel="stylesheet" href="css/theme.min.css">
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="css/styles.min.css">    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <script>
       tailwind.config = {
@@ -80,12 +99,15 @@
       "name": "Priyanka Ghosh",
       "jobTitle": "Sales Coordinator & Executive Assistant",
       "description": "Experienced Sales Coordinator with 6+ years in pre-sales, post-sales operations, and executive assistance",
-      "url": "https://priyankaghosh.com",
-      "image": "https://priyankaghosh.com/dp.jpg",
-      "email": "priyanka.ghosh@email.com",
-      "telephone": "+911234567890",
+      "url": "https://priyankaghosh.github.io",
+      "image": "https://priyankaghosh.github.io/dp.jpg",
+      "email": "ghoshpriyanka989@gmail.com",
+      "telephone": "+918335029364",
       "address": {
         "@type": "PostalAddress",
+        "addressLocality": "Howrah",
+        "postalCode": "711108",
+        "addressRegion": "West Bengal",
         "addressCountry": "IN"
       },
       "alumniOf": {
@@ -185,15 +207,21 @@
       <div id="three-container" class="fixed inset-0 z-0 pointer-events-none"></div>
       
       <!-- Left Sidebar -->
-      <aside class="w-16 md:w-24 border-r-2 flex flex-col items-center py-8 fixed top-0 left-0 h-full z-20" style="background-color: var(--cream-light); border-color: var(--primary);">
+      <aside class="hidden md:flex w-16 md:w-24 border-r-2 flex-col items-center py-8 fixed top-0 left-0 h-full z-20" style="background-color: var(--cream-light); border-color: var(--primary);">
         <div class="font-bold tracking-widest text-sm sticky top-8" style="writing-mode: vertical-rl; color: var(--primary);">PRIYANKA GHOSH</div>
+        <!-- Animated vertical bar -->
+        <div class="sidebar-animated-bar"></div>
       </aside>
       
       <!-- Main Content -->
-      <main class="flex-1 ml-16 md:ml-24">
+      <main class="flex-1 ml-0 md:ml-16 lg:ml-24">
         <!-- Header -->
-        <header class="fixed top-0 right-0 left-16 md:left-24 z-10 border-b-2 h-16 md:h-20" style="background-color: var(--cream-light); border-color: var(--primary);">
+        <header class="fixed top-0 right-0 left-0 md:left-16 lg:left-24 z-10 border-b-2 h-16 md:h-20" style="background: linear-gradient(135deg, var(--cream-light) 0%, var(--cream-light) 50%, var(--cream) 100%); border-color: var(--primary); backdrop-filter: blur(10px); box-shadow: 0 2px 8px var(--shadow-primary);">
           <div class="h-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex items-center justify-between">
+            <!-- Mobile branding (center) - shown only on small screens -->
+            <div class="mobile-brand md:hidden" style="font-weight:800; letter-spacing:0.15em; color:var(--primary); font-family: 'Inter', sans-serif; text-transform: uppercase; position:absolute; left:50%; transform:translateX(-50%); font-size: 12px;">
+              Priyanka Ghosh
+            </div>
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center gap-8">
               <a href="#home" class="text-xs font-bold uppercase tracking-[0.2em] transition-colors" style="color: var(--text-light);" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-light)'">Home</a>
@@ -223,62 +251,64 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pt-20 md:pt-24">
 
           <!-- HERO SECTION -->
-          <section id="home" class="min-h-screen py-16">
+          <section id="home" class="min-h-screen py-8 md:py-16 overflow-hidden">
             <!-- Main Hero -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-              <div class="order-2 lg:order-1">
-                <div class="w-full max-w-2xl mx-auto lg:mx-0 overflow-hidden border-4 border-black hover-lift relative group">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center mb-16 md:mb-24">
+              <div class="order-2 lg:order-1 px-4 md:px-0">
+                <div class="w-full max-w-xl md:max-w-2xl mx-auto lg:mx-0 overflow-hidden border-4 border-black hover-lift relative group">
                   <img src="assets/images/dp.jpg" alt="Portrait of Priyanka Ghosh - Sales Coordinator" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" loading="eager" />
                 </div>
               </div>
 
-              <div class="order-1 lg:order-2 space-y-8">
-                <div class="inline-block px-8 py-3 bg-black text-white text-sm font-bold uppercase tracking-widest border-l-4 border-gray-400">
+              <div class="order-1 lg:order-2 space-y-6 md:space-y-8 px-4 md:px-0">
+                <div class="inline-block px-4 md:px-8 py-2 md:py-3 text-white text-xs md:text-sm font-bold uppercase tracking-wider md:tracking-widest border-l-4" style="background-color: var(--primary); border-color: var(--accent);">
                   Sales Coordinator • Executive Assistant
                 </div>
-                <h1 class="text-6xl md:text-7xl lg:text-8xl name-display leading-tight text-black">
+                <h1 class="text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl name-display leading-tight text-black break-words">
                   Priyanka<br/>Ghosh
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium border-l-4 border-black pl-8 bg-gray-50 py-4">
+                <p class="text-base md:text-xl lg:text-2xl leading-relaxed font-medium border-l-4 pl-4 md:pl-8 py-3 md:py-4" style="color: var(--text-medium); border-color: var(--primary); background-color: var(--bg-lighter);">
                   Driving operational excellence through <span class="font-bold text-black">precision, process,</span> and <span class="font-bold text-black">data-driven insight.</span>
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-3 sm:gap-5 pt-6">
-                  <a class="group inline-flex items-center justify-center gap-2 sm:gap-3 px-8 sm:px-10 py-3 sm:py-5 text-white font-bold uppercase tracking-wider text-xs sm:text-sm transition-all duration-300 border-2 w-full sm:w-auto" style="background-color: var(--primary); border-color: var(--primary);" onmouseover="this.style.backgroundColor='var(--primary-dark)';" onmouseout="this.style.backgroundColor='var(--primary)';" href="mailto:priyanka.ghosh@email.com">
-                    <i class="bi bi-envelope-fill text-base sm:text-lg"></i>
-                    Get in Touch
+                <div class="flex flex-col sm:flex-row gap-3 pt-6">
+                  <a class="group inline-flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold uppercase tracking-wide text-xs transition-all duration-300 border-2 w-full sm:w-auto" style="background-color: var(--primary); border-color: var(--primary);" onmouseover="this.style.backgroundColor='var(--primary-dark)';" onmouseout="this.style.backgroundColor='var(--primary)';" href="#contact">
+                    <i class="bi bi-envelope-fill text-sm"></i>
+                    <span>Get in Touch</span>
                   </a>
-                  <a class="group inline-flex items-center justify-center gap-2 sm:gap-3 px-8 sm:px-10 py-3 sm:py-5 border-2 sm:border-4 font-bold uppercase tracking-wider text-xs sm:text-sm transition-all duration-300 w-full sm:w-auto" style="border-color: var(--accent); color: var(--accent);" onmouseover="this.style.backgroundColor='var(--accent)'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--accent)';" href="#resume">
-                    <i class="bi bi-download text-base sm:text-lg"></i>
-                    Download CV
+                  <a class="group inline-flex items-center justify-center gap-2 px-6 py-3 border-2 font-semibold uppercase tracking-wide text-xs transition-all duration-300 w-full sm:w-auto" style="border-color: var(--accent); color: var(--accent);" onmouseover="this.style.backgroundColor='var(--accent)'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--accent)';" href="resume/Priyanka-Ghosh-CV.pdf" download data-resume="download">
+                    <i class="bi bi-download text-sm"></i>
+                    <span>Download CV</span>
                   </a>
                 </div>
 
-                <div class="mt-16 grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-10 border-t-4" style="border-color: var(--border-color);">
-                  <div class="text-center p-3 sm:p-4 md:p-6 border-2 transition-all duration-300 hover-lift" style="border-color: var(--border-color);" onmouseover="this.style.borderColor='var(--accent)'; this.style.backgroundColor='var(--bg-lighter)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.backgroundColor='transparent';">
-                    <p class="text-2xl sm:text-3xl md:text-4xl font-black" style="color: var(--primary);">6+</p>
-                    <p class="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider sm:tracking-widest font-bold mt-1 sm:mt-2" style="color: var(--text-medium);">Years Exp.</p>
-                  </div>
-                  <div class="text-center p-3 sm:p-4 md:p-6 border-2 transition-all duration-300 hover-lift" style="border-color: var(--border-color);" onmouseover="this.style.borderColor='var(--accent)'; this.style.backgroundColor='var(--bg-lighter)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.backgroundColor='transparent';">
-                    <p class="text-2xl sm:text-3xl md:text-4xl font-black" style="color: var(--primary);">3+</p>
-                    <p class="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider sm:tracking-widest font-bold mt-1 sm:mt-2" style="color: var(--text-medium);">Certifications</p>
-                  </div>
-                  <div class="text-center p-3 sm:p-4 md:p-6 border-2 transition-all duration-300 hover-lift" style="border-color: var(--border-color);" onmouseover="this.style.borderColor='var(--accent)'; this.style.backgroundColor='var(--bg-lighter)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.backgroundColor='transparent';">
-                    <p class="text-2xl sm:text-3xl md:text-4xl font-black" style="color: var(--primary);">100%</p>
-                    <p class="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider sm:tracking-widest font-bold mt-1 sm:mt-2" style="color: var(--text-medium);">Data-Driven</p>
+                <div class="mt-8 md:mt-12 pt-6 md:pt-8 border-t-4" style="border-color: var(--border-color);">
+                  <div class="grid grid-cols-3 gap-1 sm:gap-2 md:gap-4">
+                    <div class="text-center p-2 md:p-4 border-2 transition-all duration-300 hover-lift" style="border-color: var(--border-color);" onmouseover="this.style.borderColor='var(--accent)'; this.style.backgroundColor='var(--bg-lighter)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.backgroundColor='transparent';">
+                      <p class="text-xl md:text-3xl lg:text-4xl font-black mb-1" style="color: var(--primary);">6+</p>
+                      <p class="text-[7px] md:text-[10px] uppercase font-bold leading-tight" style="color: var(--text-medium);">Years Exp.</p>
+                    </div>
+                    <div class="text-center p-2 md:p-4 border-2 transition-all duration-300 hover-lift" style="border-color: var(--border-color);" onmouseover="this.style.borderColor='var(--accent)'; this.style.backgroundColor='var(--bg-lighter)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.backgroundColor='transparent';">
+                      <p class="text-xl md:text-3xl lg:text-4xl font-black mb-1" style="color: var(--primary);">3+</p>
+                      <p class="text-[7px] md:text-[10px] uppercase font-bold leading-tight" style="color: var(--text-medium);">Certifications</p>
+                    </div>
+                    <div class="text-center p-2 md:p-4 border-2 transition-all duration-300 hover-lift" style="border-color: var(--border-color);" onmouseover="this.style.borderColor='var(--accent)'; this.style.backgroundColor='var(--bg-lighter)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.backgroundColor='transparent';">
+                      <p class="text-xl md:text-3xl lg:text-4xl font-black mb-1" style="color: var(--primary);">100%</p>
+                      <p class="text-[7px] md:text-[10px] uppercase font-bold leading-tight" style="color: var(--text-medium);">Data-Driven</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Professional About Me -->
-            <div id="about" class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start pt-16 border-t-4" style="border-color: var(--border-color);">
+            <div id="about" class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start pt-12 md:pt-16 border-t-4 px-4 md:px-0" style="border-color: var(--border-color);">
               <div class="fade-up">
-                <p class="text-sm font-bold uppercase tracking-widest font-bold text-black mb-6 border-b-4 border-gray-400 inline-block pb-2">About Me</p>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-black mb-8 leading-tight">Professional Summary</h2>
+                <p class="text-xs md:text-sm font-bold uppercase tracking-widest font-bold mb-4 md:mb-6 border-b-4 inline-block pb-2" style="color: var(--primary); border-color: var(--accent);">About Me</p>
+                <h2 class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-heading font-bold text-black mb-6 md:mb-8 leading-tight">Professional Summary</h2>
               </div>
               <div class="fade-up">
-                <p class="text-lg md:text-xl text-slate-700 leading-relaxed">
+                <p class="text-base md:text-lg lg:text-xl text-slate-700 leading-relaxed">
                   Dynamic and results-driven Sales Coordinator with <span class="font-bold text-black">6+ years of experience</span> in pre-sales, post-sales operations, and executive assistance. Skilled in <span class="font-bold text-black">data analysis, CRM management,</span> and operational coordination to drive organizational growth. Known for creating actionable insights through reporting, streamlining administrative workflows, and supporting strategic decision-making for leadership.
                 </p>
               </div>
@@ -286,7 +316,7 @@
           </section>
 
           <!-- BENTO SECTION (Experience, Skills, Certifications, Education) -->
-        <section id="bento" class="py-24 relative overflow-hidden" style="background: linear-gradient(to bottom, var(--cream-light) 0%, var(--cream) 50%, #ebe8dd 100%);">
+        <section id="bento" class="py-24 relative overflow-hidden" style="background: linear-gradient(to bottom, var(--cream-light) 0%, var(--cream) 50%, var(--cream) 100%);">
           <!-- Geometric Shapes Canvas -->
           <canvas id="shapes-canvas" class="absolute inset-0 pointer-events-none" style="z-index: 1;"></canvas>
           
@@ -324,6 +354,11 @@
                     <ul class="space-y-1 text-sm" style="color: var(--text-light);">
                       <li class="flex gap-2"><span class="font-bold font-black" style="color: var(--accent);">▸</span><span>Executive schedules & stakeholder coordination</span></li>
                       <li class="flex gap-2"><span class="font-bold font-black" style="color: var(--accent);">▸</span><span>Sales reports & CRM updates</span></li>
+                      <li class="flex gap-2"><span class="font-bold font-black" style="color: var(--accent);">▸</span><span>Coordination with Sales Team / Customer</span></li>
+                      <li class="flex gap-2"><span class="font-bold font-black" style="color: var(--accent);">▸</span><span>Bid Management</span></li>
+                      <li class="flex gap-2"><span class="font-bold font-black" style="color: var(--accent);">▸</span><span>Quotations</span></li>
+                      <li class="flex gap-2"><span class="font-bold font-black" style="color: var(--accent);">▸</span><span>Tender Management</span></li>
+                      <li class="flex gap-2"><span class="font-bold font-black" style="color: var(--accent);">▸</span><span>Price Analysis</span></li>
                     </ul>
                   </div>
                   
@@ -449,10 +484,10 @@
           
           <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative" style="z-index: 2;">
             <div class="text-center mb-16 fade-up">
-              <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-6">Get in Touch</p>
+              <p class="text-xs font-bold uppercase tracking-[0.3em] mb-6" style="color: var(--text-light);">Get in Touch</p>
               <h3 class="text-5xl md:text-6xl lg:text-7xl font-display italic font-black text-black mb-8 leading-tight">Let's Connect</h3>
-              <div class="w-16 h-px bg-black mx-auto mb-8"></div>
-              <p class="text-gray-500 max-w-xl mx-auto text-base leading-relaxed">Have a project in mind or just want to chat? I'm always open to discussing new opportunities and collaborations.</p>
+              <div class="w-16 h-px mx-auto mb-8" style="background-color: var(--primary);"></div>
+              <p class="max-w-xl mx-auto text-base leading-relaxed" style="color: var(--text-medium);">Have a project in mind or just want to chat? I'm always open to discussing new opportunities and collaborations.</p>
             </div>
 
             <div class="fade-up">
@@ -553,28 +588,28 @@
               </form>
             </div>
 
-            <div class="mt-16 pt-12 border-t border-gray-100 fade-up">
+            <div class="mt-16 pt-12 fade-up" style="border-top: 2px solid var(--border-color);">
               <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-3xl mx-auto">
                 <div class="text-center group">
                   <div class="mb-4 transition-transform duration-300 group-hover:-translate-y-1">
-                    <i class="bi bi-envelope-fill text-2xl text-black"></i>
+                    <i class="bi bi-envelope-fill text-2xl" style="color: var(--primary);"></i>
                   </div>
-                  <p class="text-xs uppercase tracking-wider text-gray-400 mb-2 font-bold">Email</p>
-                  <a href="mailto:priyanka.ghosh@email.com" class="text-sm text-gray-600 hover:text-black transition-colors">priyanka.ghosh@email.com</a>
+                  <p class="text-xs uppercase tracking-wider mb-2 font-bold" style="color: var(--text-light);">Email</p>
+                  <a href="mailto:ghoshpriyanka989@gmail.com" class="text-sm transition-colors" style="color: var(--text-medium);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-medium)'" data-contact="email">ghoshpriyanka989@gmail.com</a>
                 </div>
                 <div class="text-center group">
                   <div class="mb-4 transition-transform duration-300 group-hover:-translate-y-1">
-                    <i class="bi bi-telephone-fill text-2xl text-black"></i>
+                    <i class="bi bi-telephone-fill text-2xl" style="color: var(--primary);"></i>
                   </div>
-                  <p class="text-xs uppercase tracking-wider text-gray-400 mb-2 font-bold">Phone</p>
-                  <a href="tel:+911234567890" class="text-sm text-gray-600 hover:text-black transition-colors">+91 12345 67890</a>
+                  <p class="text-xs uppercase tracking-wider mb-2 font-bold" style="color: var(--text-light);">Phone</p>
+                  <a href="tel:+918335029364" class="text-sm transition-colors" style="color: var(--text-medium);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-medium)'" data-contact="phone">+91 83350 29364</a>
                 </div>
                 <div class="text-center group">
                   <div class="mb-4 transition-transform duration-300 group-hover:-translate-y-1">
-                    <i class="bi bi-geo-alt-fill text-2xl text-black"></i>
+                    <i class="bi bi-geo-alt-fill text-2xl" style="color: var(--primary);"></i>
                   </div>
-                  <p class="text-xs uppercase tracking-wider text-gray-400 mb-2 font-bold">Location</p>
-                  <p class="text-sm text-gray-600">Based in India</p>
+                  <p class="text-xs uppercase tracking-wider mb-2 font-bold" style="color: var(--text-light);">Location</p>
+                  <p class="text-sm" style="color: var(--text-medium);" data-contact="location">Howrah - 711108, West Bengal, India</p>
                 </div>
               </div>
             </div>
@@ -582,50 +617,51 @@
         </section>
 
         <!-- FOOTER -->
-        <footer class="px-8 md:px-16 lg:px-24 py-16 border-t-4" style="background-color: var(--primary); border-color: var(--accent);">
+        <footer class="px-8 md:px-16 lg:px-24 py-16 border-t-4" style="background-color: var(--cream); border-color: var(--primary);">
           <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div class="md:col-span-1">
-                <h3 class="name-display text-4xl mb-2" style="color: var(--cream-light);">Priyanka Ghosh</h3>
+                <h3 class="name-display text-4xl mb-2" style="color: var(--primary);">Priyanka Ghosh</h3>
                 <p class="font-bold" style="color: var(--accent);">Sales Coordinator & Executive Assistant</p>
               </div>
               <div class="md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
                 <div>
-                  <h4 class="font-bold mb-3 uppercase tracking-wider" style="color: var(--accent);">Navigation</h4>
-                  <ul class="space-y-2" style="color: var(--cream);">
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="#about">About</a></li>
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="#experience">Experience</a></li>
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="#skills">Skills</a></li>
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="#education">Education</a></li>
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="#contact">Contact</a></li>
+                  <h4 class="font-bold mb-3 uppercase tracking-wider" style="color: var(--primary);">Navigation</h4>
+                  <ul class="space-y-2" style="color: var(--text-dark);">
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="#about">About</a></li>
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="#experience">Experience</a></li>
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="#skills">Skills</a></li>
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="#education">Education</a></li>
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="#contact">Contact</a></li>
                   </ul>
                 </div>
                 <div>
-                  <h4 class="font-bold mb-3 uppercase tracking-wider" style="color: var(--accent);">Socials</h4>
-                  <ul class="space-y-2" style="color: var(--cream);">
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="#">LinkedIn</a></li>
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="#">Twitter</a></li>
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="#">GitHub</a></li>
+                  <h4 class="font-bold mb-3 uppercase tracking-wider" style="color: var(--primary);">Socials</h4>
+                  <ul class="space-y-2" style="color: var(--text-dark);">
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="#">LinkedIn</a></li>
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="#">Twitter</a></li>
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="#">GitHub</a></li>
                   </ul>
                 </div>
                 <div>
-                  <h4 class="font-bold mb-3 uppercase tracking-wider" style="color: var(--accent);">Contact</h4>
-                  <ul class="space-y-2" style="color: var(--cream);">
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="mailto:priyanka.ghosh@email.com">Email Me</a></li>
-                    <li><a class="font-medium transition-colors" style="color: var(--cream);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--cream)'" href="tel:+911234567890">Call Me</a></li>
+                  <h4 class="font-bold mb-3 uppercase tracking-wider" style="color: var(--primary);">Contact</h4>
+                  <ul class="space-y-2" style="color: var(--text-dark);">
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="mailto:ghoshpriyanka989@gmail.com" data-contact="email">Email Me</a></li>
+                    <li><a class="font-medium transition-colors" style="color: var(--text-dark);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dark)'" href="tel:+918335029364" data-contact="phone">Call Me</a></li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="text-center text-sm mt-12 pt-8" style="border-top: 1px solid var(--accent); opacity: .8;">
-              <p class="font-bold" style="color: var(--cream);">© 2025 Priyanka Ghosh ❤️. All Rights Reserved.</p>
+            <div class="text-center text-sm mt-12 pt-8" style="border-top: 2px solid var(--primary); opacity: .8;">
+              <p class="font-bold" style="color: var(--text-dark);">© 2025 Priyanka Ghosh ❤️. All Rights Reserved.</p>
+              <!--Developed by Suman Roy https://github.com/sumanrox -->
             </div>
           </div>
         </footer>
       </main>
     </div>
 
-    <!-- JavaScript -->
-    <script src="js/app.js"></script>
+    <!-- JavaScript - deferred for faster page load -->
+    <script src="js/app.min.js" defer></script>
   </body>
 </html>

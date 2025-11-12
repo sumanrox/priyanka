@@ -1,25 +1,12 @@
 /* ============================================================
    ROOT VARIABLES & GLOBAL STYLES
    ============================================================ */
-/* Root Variables */
+/* Import theme variables */
+@import url('theme.css');
+
+/* Root Variables (Non-theme specific) */
 :root {
   --scroll-progress: 0;
-  
-  /* Navy & Cream Professional Palette */
-  --primary: #1e3a5f;        /* Deep Navy - Professional, trustworthy */
-  --primary-light: #2d5a8f;  /* Lighter navy */
-  --primary-dark: #0f1e30;   /* Darker navy */
-  --accent: #c8a882;         /* Warm Gold - Elegance, sophistication */
-  --accent-light: #e5cfb3;   /* Light gold/beige */
-  --accent-dark: #a88f6f;    /* Dark gold */
-  --cream: #f5f3ed;          /* Warm cream background */
-  --cream-light: #faf9f5;    /* Lighter cream */
-  --text-dark: #1a1a1a;      /* Almost black for text */
-  --text-medium: #4a5568;    /* Medium gray */
-  --text-light: #718096;     /* Light gray */
-  --bg-white: #ffffff;
-  --border-color: #e8e4dd;   /* Cream-toned border */
-  --border-accent: #d4c4a8;  /* Darker cream border */
 }
 
 /* Lenis Smooth Scroll */
@@ -88,7 +75,7 @@ html {
 }
 
 body { 
-  background: #ffffff;
+  background: var(--bg-white);
   overflow-x: hidden;
 }
 
@@ -99,11 +86,30 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: var(--scroll-progress);
-  height: 3px;
-  background: #000000;
+  width: 0%;
+  height: 5px;
+  background: linear-gradient(90deg, 
+    var(--primary) 0%, 
+    var(--accent) 25%,
+    var(--primary-light) 50%, 
+    var(--accent) 75%,
+    var(--primary) 100%);
+  background-size: 200% 100%;
+  animation: progressShimmer 4s ease-in-out infinite;
   z-index: 9999;
   transition: width 100ms ease-out;
+  box-shadow: 0 2px 10px rgba(200, 168, 130, 0.6), 
+              0 0 20px rgba(30, 58, 95, 0.4);
+  opacity: 1;
+}
+
+@keyframes progressShimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* ============================================================
@@ -138,9 +144,9 @@ body {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: #000000;
+  background: var(--text-dark);
   color: white;
-  border: 2px solid #000000;
+  border: 2px solid var(--text-dark);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
@@ -166,10 +172,10 @@ body {
   right: -100%;
   width: 320px;
   height: 100vh;
-  background: #ffffff;
+  background: var(--bg-white);
   transition: right 600ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 50;
-  border-left: 1px solid #e5e7eb;
+  border-left: 1px solid var(--border-color);
 }
 
 .mobile-menu.active {
@@ -251,6 +257,107 @@ body {
   font-style: italic;
   font-weight: 900;
 }
+
+/* ============================================================
+   HEADER NOISE TEXTURE
+   ============================================================ */
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(30, 58, 95, 0.03) 2px, rgba(30, 58, 95, 0.03) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(200, 168, 130, 0.02) 2px, rgba(200, 168, 130, 0.02) 4px);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+header > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   SIDEBAR NOISE TEXTURE
+   ============================================================ */
+aside::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(30, 58, 95, 0.03) 2px, rgba(30, 58, 95, 0.03) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(200, 168, 130, 0.02) 2px, rgba(200, 168, 130, 0.02) 4px);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+aside > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   SIDEBAR ANIMATED BAR
+   ============================================================ */
+.sidebar-animated-bar {
+  width: 3px;
+  flex-grow: 1;
+  margin-top: 2rem;
+  background: linear-gradient(180deg, 
+    var(--primary) 0%, 
+    var(--accent) 25%, 
+    var(--primary-light) 50%, 
+    var(--accent) 75%, 
+    var(--primary) 100%);
+  background-size: 100% 200%;
+  animation: flowColors 4s ease-in-out infinite;
+  opacity: 0.8;
+  box-shadow: 0 0 12px rgba(200, 168, 130, 0.6);
+}
+
+@keyframes flowColors {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+}
+
+/* ============================================================
+   TEXT HIGHLIGHT (GSAP-friendly)
+   ============================================================ */
+/* Word-level span used for scroll highlight effects. We animate
+   the CSS variable --highlightWidth to reveal a cream highlight
+   under each word. Kept subtle and skewed for a polished look. */
+.highlight-word {
+  display: inline-block;
+  position: relative;
+  line-height: 1.05;
+  --highlightWidth: 0%;
+  /* Ensure words preserve break behavior */
+  white-space: normal;
+}
+
+.highlight-word::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.12em;
+  height: 0.54em;
+  width: var(--highlightWidth);
+  background: linear-gradient(90deg, var(--accent-light) 0%, var(--accent) 100%);
+  z-index: -1;
+  transform: skewX(-10deg);
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.3, 1);
+  pointer-events: none;
+  border-radius: 0px;
+}
+
+/* When GSAP animates opacity/position we still want inline words to align nicely */
+.highlight-word[data-inline="true"] { display: inline; }
 
 /* ============================================================
    CONTACT FORM ENHANCEMENTS
@@ -373,4 +480,34 @@ body {
 /* Remove ALL rounded edges */
 * {
   border-radius: 0 !important;
+}
+
+/* Scroll margin for anchor links to account for fixed header */
+#home, #about, #experience, #bento, #skills, #education, #contact {
+  scroll-margin-top: 120px;
+}
+
+/* Hero stats - prevent overflow on tablets */
+@media (max-width: 1023px) {
+  #home .grid.grid-cols-3 > div p:last-child {
+    font-size: 7px !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.3 !important;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  
+  #home .grid.grid-cols-3 > div p:first-child {
+    font-size: 1.25rem !important;
+  }
+  
+  #home .grid.grid-cols-3 > div {
+    padding: 0.4rem !important;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  #home .grid.grid-cols-3 > div p:first-child {
+    font-size: 1.5rem !important;
+  }
 }

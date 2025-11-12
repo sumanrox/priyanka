@@ -1,4 +1,106 @@
 // ============================================================
+// SITE CONFIG LOADER - Load contact & resume info from JSON
+// ============================================================
+let siteConfig = null;
+
+// Security: Sanitize text to prevent XSS attacks
+function sanitizeText(text) {
+  if (typeof text !== 'string') return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Security: Validate email format
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 254; // RFC 5321
+}
+
+// Security: Validate phone format
+function isValidPhone(phone) {
+  // Allow digits, spaces, hyphens, parentheses, and plus sign
+  const phoneRegex = /^[\d\s\-\(\)\+]{7,20}$/;
+  return phoneRegex.test(phone);
+}
+
+async function loadSiteConfig() {
+  try {
+    const response = await fetch('data/site-config.json');
+    if (!response.ok) throw new Error('Failed to fetch config');
+    siteConfig = await response.json();
+    populateContactInfo();
+  } catch (error) {
+    console.warn('Could not load site-config.json, using fallback values:', error);
+  }
+}
+
+function populateContactInfo() {
+  if (!siteConfig) return;
+  
+  const { contact, resume, profile } = siteConfig;
+  
+  // Security: Validate and sanitize all contact data
+  const sanitizedEmail = isValidEmail(contact.email) ? contact.email : '';
+  const sanitizedPhone = isValidPhone(contact.phone) ? contact.phone : '';
+  const sanitizedPhoneDisplay = sanitizeText(contact.phoneDisplay);
+  const sanitizedLocation = sanitizeText(contact.location);
+  
+  // Update all email links
+  document.querySelectorAll('[data-contact="email"]').forEach(el => {
+    if (el.tagName === 'A' && sanitizedEmail) {
+      el.href = `mailto:${sanitizedEmail}`;
+      el.textContent = sanitizedEmail;
+    }
+  });
+  
+  // Update all phone links
+  document.querySelectorAll('[data-contact="phone"]').forEach(el => {
+    if (el.tagName === 'A' && sanitizedPhone) {
+      el.href = `tel:${sanitizedPhone}`;
+      el.textContent = sanitizedPhoneDisplay;
+    }
+  });
+  
+  // Update location
+  document.querySelectorAll('[data-contact="location"]').forEach(el => {
+    el.textContent = sanitizedLocation;
+  });
+  
+  // Update resume links
+  document.querySelectorAll('[data-resume="download"]').forEach(el => {
+    if (el.tagName === 'A' && resume.path) {
+      // Security: Only allow safe file paths (no ../ or absolute paths)
+      const safePath = resume.path.replace(/\.\.\//g, '').replace(/^\//, '');
+      el.href = safePath;
+    }
+  });
+  
+  // Update JSON-LD structured data
+  const jsonLdScript = document.querySelector('script[type="application/ld+json"]');
+  if (jsonLdScript && sanitizedEmail && sanitizedPhone) {
+    try {
+      const structuredData = JSON.parse(jsonLdScript.textContent);
+      structuredData.email = sanitizedEmail;
+      structuredData.telephone = sanitizedPhone;
+      structuredData.address = {
+        "@type": "PostalAddress",
+        "addressLocality": sanitizeText(contact.locationShort),
+        "postalCode": sanitizeText(contact.postalCode),
+        "addressRegion": sanitizeText(contact.region),
+        "addressCountry": "IN"
+      };
+      jsonLdScript.textContent = JSON.stringify(structuredData, null, 2);
+    } catch (e) {
+      console.warn('Could not update JSON-LD:', e);
+    }
+  }
+}
+
+// Load config on page load
+loadSiteConfig();
+
+// ============================================================
 // 3D ANIMATED BACKGROUND WITH THREE.JS
 // ============================================================
 const container = document.getElementById('three-container');
@@ -571,6 +673,7 @@ document.getElementById('contact-form')?.addEventListener('submit', function(e) 
   feedbackElement.textContent = '';
   feedbackElement.className = 'text-sm font-medium';
   
+  // Security: Input validation and sanitization
   // Validate all fields are filled
   if (!name || !email || !message) {
     feedbackElement.textContent = 'Please fill in all fields.';
@@ -578,31 +681,36 @@ document.getElementById('contact-form')?.addEventListener('submit', function(e) 
     return;
   }
   
-  // Validate name (at least 2 characters)
-  if (name.length < 2) {
-    feedbackElement.textContent = 'Please enter a valid name.';
+  // Security: Validate name (2-100 characters, letters, spaces, hyphens only)
+  const nameRegex = /^[a-zA-Z\s\-]{2,100}$/;
+  if (!nameRegex.test(name)) {
+    feedbackElement.textContent = 'Please enter a valid name (letters, spaces, and hyphens only).';
     feedbackElement.className = 'text-sm font-medium text-red-600';
     return;
   }
   
-  // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
+  // Security: Validate email format and length
+  if (!isValidEmail(email)) {
     feedbackElement.textContent = 'Please enter a valid email address.';
     feedbackElement.className = 'text-sm font-medium text-red-600';
     return;
   }
   
-  // Validate message (at least 10 characters)
-  if (message.length < 10) {
-    feedbackElement.textContent = 'Message must be at least 10 characters long.';
+  // Security: Validate message (10-5000 characters)
+  if (message.length < 10 || message.length > 5000) {
+    feedbackElement.textContent = 'Message must be between 10 and 5000 characters.';
     feedbackElement.className = 'text-sm font-medium text-red-600';
     return;
   }
   
+  // Security: Sanitize all inputs before using them
+  const sanitizedName = sanitizeText(name);
+  const sanitizedEmail = sanitizeText(email);
+  const sanitizedMessage = sanitizeText(message);
+  
   // If all validations pass, proceed with mailto
-  const subject = encodeURIComponent('Website inquiry from ' + name);
-  const body = encodeURIComponent(message + '\n\n' + name + '\n' + email);
+  const subject = encodeURIComponent('Website inquiry from ' + sanitizedName);
+  const body = encodeURIComponent(sanitizedMessage + '\n\n' + sanitizedName + '\n' + sanitizedEmail);
   window.location.href = `mailto:priyanka.ghosh@email.com?subject=${subject}&body=${body}`;
   
   feedbackElement.textContent = 'Opening email client...';
@@ -647,8 +755,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       e.preventDefault();
       const target = document.querySelector(href);
       if (target) {
-        // Calculate offset for fixed navbar
-        const navbarHeight = 80;
+        // Calculate offset for fixed navbar and sidebar
+        // Increased offset to ensure section headings are visible
+        const navbarHeight = 140;
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
         
         // Use Lenis scrollTo
@@ -668,7 +777,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             }
           }
         });
-        
+
         // Close mobile menu if open
         const mobileMenu = document.getElementById('mobile-menu');
         const navToggle = document.getElementById('nav-toggle');
@@ -680,3 +789,112 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+// ============================================================
+// GSAP: Scroll-driven text highlight & extra micro-animations
+// ============================================================
+if (typeof gsap !== 'undefined') {
+  try {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Wrap text nodes inside elements with .highlight-word spans
+    // Preserve original text for screen readers via aria-label
+    function wrapTextForHighlight(selector) {
+      document.querySelectorAll(selector).forEach(el => {
+        // Skip elements that have already been processed
+        if (el.dataset.highlighted) return;
+
+        // Ignore empty or very short elements
+        const text = el.textContent.trim();
+        if (!text || text.length < 2) return;
+
+        const words = text.split(/\s+/);
+        if (words.length === 0) return;
+
+        el.dataset.highlighted = 'true';
+        
+        // Preserve original text for screen readers
+        el.setAttribute('aria-label', text);
+        
+        // Security: Clear existing content safely using textContent instead of innerHTML
+        while (el.firstChild) {
+          el.removeChild(el.firstChild);
+        }
+
+        words.forEach((w, i) => {
+          const span = document.createElement('span');
+          span.className = 'highlight-word';
+          span.setAttribute('aria-hidden', 'true'); // Hide from screen readers
+          span.textContent = w; // Safe: textContent escapes HTML
+          el.appendChild(span);
+          if (i !== words.length - 1) el.appendChild(document.createTextNode(' '));
+        });
+      });
+    }
+
+    // Apply wrapping to main body text (headings, paragraphs, list items, links)
+    wrapTextForHighlight('main h1, main h2, main h3, main h4, main p, main li, main a, .name-display');
+
+    // Initialize starting state for highlight custom property
+    document.querySelectorAll('.highlight-word').forEach(w => {
+      gsap.set(w, { css: { '--highlightWidth': '0%' }, autoAlpha: 1 });
+    });
+
+    // Animate words when their parent element enters viewport
+    // Tuned for elegant visual rhythm with refined timings
+    const parents = document.querySelectorAll('main h1, main h2, main h3, main h4, main p, main li, main a, .name-display');
+    parents.forEach(parent => {
+      const words = parent.querySelectorAll('.highlight-word');
+      if (!words || words.length === 0) return;
+
+      // Fade/slide words in with a refined stagger and reveal highlight
+      // Adjusted: slower stagger (0.025 → more luxurious), longer duration (0.85s), softer ease
+      gsap.fromTo(words, { y: 22, opacity: 0 }, {
+        y: 0,
+        opacity: 1,
+        stagger: 0.025,
+        duration: 0.85,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: parent,
+          start: 'top 82%',
+          toggleActions: 'play none none reverse'
+        },
+        onStart: () => {
+          // Highlight reveal: slightly faster (1.1s total) with a smoother ease
+          gsap.to(words, { duration: 1.1, css: { '--highlightWidth': '100%' }, stagger: 0.025, ease: 'power3.out' });
+        },
+        onReverseComplete: () => {
+          gsap.to(words, { duration: 0.5, css: { '--highlightWidth': '0%' }, stagger: 0.015, ease: 'power2.in' });
+        }
+      });
+    });
+
+    // Micro animations that match the design language
+    // Header reveal - slower and more elegant
+    gsap.from('header', { y: -42, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.1 });
+
+    // Name display subtle lift - refined stagger and ease
+    gsap.from('.name-display', { y: 24, opacity: 0, duration: 1.0, stagger: 0.05, ease: 'power3.out', delay: 0.2 });
+
+    // Gentle pulse on primary CTA - slower, more luxurious breathing effect
+    gsap.to('#contact-form button[type="submit"]', { 
+      scale: 1.015, 
+      transformOrigin: 'center center', 
+      repeat: -1, 
+      yoyo: true, 
+      ease: 'sine.inOut', 
+      duration: 2.5, 
+      repeatDelay: 8 
+    });
+
+    // Nav links hover micro-scale - slightly more pronounced with refined timing
+    document.querySelectorAll('header nav a').forEach(a => {
+      a.addEventListener('mouseenter', () => gsap.to(a, { scale: 1.05, duration: 0.24, ease: 'power2.out' }));
+      a.addEventListener('mouseleave', () => gsap.to(a, { scale: 1, duration: 0.24, ease: 'power2.out' }));
+    });
+
+  } catch (err) {
+    console.warn('GSAP initialization failed:', err);
+  }
+}

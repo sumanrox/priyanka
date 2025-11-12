@@ -1,0 +1,21 @@
+{
+  "contact": {
+    "email": "ghoshpriyanka989@gmail.com",
+    "phone": "+918335029364",
+    "phoneDisplay": "+91 83350 29364",
+    "location": "Howrah - 711108, West Bengal, India",
+    "locationShort": "Howrah",
+    "postalCode": "711108",
+    "region": "West Bengal",
+    "country": "India"
+  },
+  "resume": {
+    "path": "resume/Priyanka-Ghosh-CV.pdf",
+    "filename": "Priyanka-Ghosh-CV.pdf"
+  },
+  "profile": {
+    "name": "Priyanka Ghosh",
+    "title": "Sales Coordinator & Executive Assistant",
+    "url": "https://priyankaghosh.com"
+  }
+}
