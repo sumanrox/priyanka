@@ -8,6 +8,7 @@ Professional portfolio website showcasing experience, skills, certifications, an
 - **Lenis Smooth Scroll**: Studio-grade scroll experience (1.0s duration, optimized easing)
 - **Three.js Scenes**: Wireframe hero, feather contact bg, geometric bento shapes
 - **GSAP Animations**: Minimal subtle animations (button pulse only)
+- **AJAX Contact Form**: FormSubmit.co integration with instant feedback, no page reload
 - **Responsive Design**: Mobile-first with hamburger menu and optimized layouts
 - **Security Hardened**: OWASP Top 10 protections, input sanitization, SRI hashes
 - **Performance Optimized**: Minified CSS/JS (~14KB savings), resource hints, deferred loading
@@ -188,7 +189,7 @@ See `SECURITY.md` for complete OWASP Top 10 coverage.
 2. **About**: Professional summary
 3. **Experience**: Work timeline with Vareli Tecnac job details
 4. **Bento Grid**: Certifications and highlights with geometric shapes
-5. **Contact**: Form with Three.js feather background
+5. **Contact**: AJAX form with FormSubmit.co integration and Three.js feather background
 6. **Footer**: Three-column grid (navigation, social, contact)
 
 **UI Elements:**
@@ -197,14 +198,24 @@ See `SECURITY.md` for complete OWASP Top 10 coverage.
 - Fixed vertical sidebar with branding
 - LinkedIn social link (username: priyanka-ghosh-84025a164)
 
+**Contact Form Features:**
+- AJAX submission via fetch API (no page reload)
+- Real-time validation with visual feedback
+- Button transforms: "Send Message" → "⏳ Sending..." → "✓ Thank You!"
+- Success message display with 5-second auto-reset
+- Error handling with retry capability
+- FormSubmit.co backend (sends to ghoshpriyanka989@gmail.com)
+
 ## 📊 File Sizes
 
 | File | Original | Minified | Savings |
 |------|----------|----------|---------|
 | theme.css | 3.8KB | 3.3KB | 13% |
-| styles.css | 11.6KB | 10.0KB | 14% |
-| app.js | 27.6KB | 18.0KB | 35% |
-| **Total** | **43KB** | **31KB** | **~12KB** |
+| styles.css | 11.6KB | 10.1KB | 13% |
+| app.js | 29.4KB | 19.4KB | 34% |
+| **Total** | **44.8KB** | **32.8KB** | **~12KB** |
+
+*Note: app.js size increased from 27.6KB to 29.4KB due to AJAX form submission implementation*
 
 ## 📞 Support & Contact
 
@@ -343,11 +354,26 @@ The `js/app.js` file includes:
    - Visibility on scroll > 300px
    - Smooth scroll to top
 
-7. **Contact Form Validation** (65 lines)
-   - Email regex: `/^[^\s@]+@[^\s@]+\.[^\s@]+$/`
-   - Name minimum: 2 characters
-   - Message minimum: 10 characters
-   - Visual feedback
+7. **Contact Form with AJAX** (110 lines)
+   - Input validation: email regex, name (2-100 chars), message (10-5000 chars)
+   - Security: sanitization before submission
+   - Fetch API POST to FormSubmit.co
+   - Button state management: normal → sending → success/error
+   - Visual feedback with icons and color changes
+   - Auto-reset after 5 seconds on success
+   - Error handling with retry capability
+
+8. **Three.js Scenes** (180 lines)
+   - Hero wireframe animation
+   - Contact feather particles
+   - Bento geometric shapes
+   - Responsive canvas sizing
+
+9. **Site Config Loader** (80 lines)
+   - Fetches `data/site-config.json`
+   - Populates contact info dynamically
+   - Input validation and sanitization
+   - Error handling
 
 ## 🎯 SEO Optimization
 

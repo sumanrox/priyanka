@@ -15,7 +15,8 @@ This portfolio site implements security best practices to protect against the OW
 - **Path Traversal Prevention**: Resume paths sanitized (no `../` or absolute paths)
 
 #### 2. **Broken Authentication (A07:2021)**
-- **N/A**: Static site with no authentication system
+- **Backend**: Static site with FormSubmit.co handling form submissions
+- **No Authentication**: No user login or session management
 - **Future**: If backend added, implement rate limiting (see below)
 
 #### 3. **Sensitive Data Exposure (A02:2021)**
@@ -135,10 +136,11 @@ app.post('/api/contact', contactFormLimiter, (req, res) => {
 ```
 
 ### Client-Side Throttling
-Current implementation uses `mailto:` links (no backend), but includes:
+Current implementation uses AJAX submission to FormSubmit.co with:
 - Form validation before submission
-- 3-second cooldown after submission
-- Form reset to prevent rapid resubmission
+- Button disabled during submission (prevents double-submit)
+- 5-second cooldown after successful submission (auto-reset)
+- Visual feedback throughout process
 
 ---
 
