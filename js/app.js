@@ -726,17 +726,18 @@ document.getElementById('contact-form')?.addEventListener('submit', function(e) 
 // LENIS SMOOTH SCROLL INITIALIZATION
 // ============================================================
 
-// Initialize Lenis
+// Initialize Lenis with optimized settings for smoother performance
 const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+  duration: 1.0,
+  easing: (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2, // easeInOutQuad - smoother than easeOutExpo
   orientation: 'vertical',
   gestureOrientation: 'vertical',
   smoothWheel: true,
-  wheelMultiplier: 1,
+  wheelMultiplier: 0.8, // Reduced from 1 for less aggressive scrolling
   smoothTouch: false,
-  touchMultiplier: 2,
+  touchMultiplier: 1.5, // Reduced from 2
   infinite: false,
+  syncTouch: true, // Better touch device performance
 });
 
 // Lenis animation frame
@@ -793,19 +794,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================================
 // GSAP: Scroll-driven text highlight & extra micro-animations
 // ============================================================
-// GSAP: Simple micro-animations (text highlight disabled)
+// GSAP: Minimal animations - entrance animations disabled to prevent vibration
 // ============================================================
 if (typeof gsap !== 'undefined') {
   try {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Micro animations that match the design language
-    // Header reveal - slower and more elegant
-    gsap.from('header', { y: -42, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.1 });
-
-    // Name display subtle lift - refined stagger and ease
-    gsap.from('.name-display', { y: 24, opacity: 0, duration: 1.0, stagger: 0.05, ease: 'power3.out', delay: 0.2 });
-
+    // Only keep the gentle button pulse - no entrance animations
     // Gentle pulse on primary CTA - slower, more luxurious breathing effect
     gsap.to('#contact-form button[type="submit"]', { 
       scale: 1.015, 
@@ -815,12 +810,6 @@ if (typeof gsap !== 'undefined') {
       ease: 'sine.inOut', 
       duration: 2.5, 
       repeatDelay: 8 
-    });
-
-    // Nav links hover micro-scale - slightly more pronounced with refined timing
-    document.querySelectorAll('header nav a').forEach(a => {
-      a.addEventListener('mouseenter', () => gsap.to(a, { scale: 1.05, duration: 0.24, ease: 'power2.out' }));
-      a.addEventListener('mouseleave', () => gsap.to(a, { scale: 1, duration: 0.24, ease: 'power2.out' }));
     });
 
   } catch (err) {
